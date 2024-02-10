@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
+
   @Autowired
   private UIStrategy uiStrategy;
 
   @GetMapping("/")
-  ViewContext index(){
+  ViewContext index() {
     return uiStrategy.render(
         new Box(
-            new Button("Hello World"),
-            new Button("Hello World2")
-
+            new Button("Hello World")
         )
     );
   }

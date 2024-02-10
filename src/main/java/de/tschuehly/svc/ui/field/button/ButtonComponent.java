@@ -9,7 +9,6 @@ import de.tschuehly.svc.ui.strategy.RenderFunction;
 @ViewComponent
 public class ButtonComponent implements ContentComponent {
 
-
   @Override
   public Boolean canHandle(Content content) {
     return content instanceof Button;
@@ -20,7 +19,5 @@ public class ButtonComponent implements ContentComponent {
     return new ButtonContext((Button) content);
   }
 
-  public record ButtonContext(Button button) implements ViewContext {
-
-  }
+  public record ButtonContext(Button button) implements ViewContext {}
 }
