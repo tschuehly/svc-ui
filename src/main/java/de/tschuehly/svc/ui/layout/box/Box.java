@@ -1,11 +1,10 @@
 package de.tschuehly.svc.ui.layout.box;
 
-import de.tschuehly.svc.ui.layout.LayoutDefinition;
 import de.tschuehly.svc.ui.strategy.Content;
 import java.util.Arrays;
 import java.util.List;
 
-public class Box implements LayoutDefinition {
+public class Box implements Content {
 
   public final List<Content> boxContents;
   public Box(List<Content> boxContents) {

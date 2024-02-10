@@ -1,14 +1,8 @@
 package de.tschuehly.svc.ui.field.button;
 
-import de.tschuehly.svc.ui.field.FieldDefinition;
-import de.tschuehly.svc.ui.field.FieldType;
 
-public class Button extends FieldDefinition {
+import de.tschuehly.svc.ui.strategy.Content;
 
-  public final String label;
+public record Button(String label) implements Content {
 
-  public Button(String label) {
-    super(FieldType.BUTTON);
-    this.label = label;
-  }
 }
