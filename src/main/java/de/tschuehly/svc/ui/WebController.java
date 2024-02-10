@@ -3,16 +3,16 @@ package de.tschuehly.svc.ui;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import de.tschuehly.svc.ui.field.button.Button;
 import de.tschuehly.svc.ui.layout.box.Box;
-import de.tschuehly.svc.ui.strategy.UiStrategy;
+import de.tschuehly.svc.ui.strategy.UIStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
 
-  private final UiStrategy uiStrategy;
+  private final UIStrategy uiStrategy;
 
-  public WebController(UiStrategy uiStrategy) {
+  public WebController(UIStrategy uiStrategy) {
     this.uiStrategy = uiStrategy;
   }
 
