@@ -2,7 +2,7 @@
 
 <div style="border: red 2px solid; padding: 1rem;">
     @for(var content: boxContext.content().boxContents)
-        ${boxContext.renderFunction().render(content)}
+        ${boxContext.renderFunction().render(content, boxContext.data())}
     @endfor
 </div>
 

@@ -4,5 +4,5 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 
 @FunctionalInterface
 public interface RenderFunction {
-  ViewContext render(Content content);
+ <T> ViewContext render(Content content, T data);
 }

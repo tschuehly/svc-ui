@@ -9,17 +9,18 @@ import de.tschuehly.svc.ui.strategy.RenderFunction;
 @ViewComponent
 public class BoxComponent implements ContentComponent {
 
+
   @Override
-  public Boolean canHandle(Content content) {
+  public <T> Boolean canHandle(Content content, T data) {
     return content instanceof Box;
   }
 
   @Override
-  public ViewContext render(Content content, RenderFunction renderFunction) {
-    return new BoxContext((Box) content, renderFunction);
+  public <T> ViewContext render(Content content, RenderFunction renderFunction, T data) {
+    return new BoxContext<>((Box) content, renderFunction, data);
   }
 
-  public record BoxContext(Box content, RenderFunction renderFunction) implements ViewContext {
+  public record BoxContext<T>(Box content, RenderFunction renderFunction, T data) implements ViewContext {
 
   }
 }
