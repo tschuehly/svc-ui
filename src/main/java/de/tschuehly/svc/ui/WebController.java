@@ -23,7 +23,7 @@ public class WebController {
   @GetMapping("/{taskId}")
   ViewContext index(@PathVariable Integer taskId) {
     return contentStrategy.renderWithData(
-        new Box<Task>(
+        new Box<>(
             new TaskDetails(),
             new TaskRow()
         ),

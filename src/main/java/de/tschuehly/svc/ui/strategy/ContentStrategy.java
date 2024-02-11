@@ -1,5 +1,6 @@
 package de.tschuehly.svc.ui.strategy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import de.tschuehly.svc.ui.domain.task.Task;
 import jakarta.annotation.Nullable;
