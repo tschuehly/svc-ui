@@ -8,17 +8,18 @@ import de.tschuehly.svc.ui.strategy.RenderFunction;
 import org.jetbrains.annotations.Nullable;
 
 @ViewComponent
-public class ButtonComponent implements ContentComponent {
+public class ButtonComponent implements ContentComponent<Object> {
 
   @Override
-  public <T> Boolean canHandle(Content content, T data) {
+  public Boolean canHandle(Content content) {
     return content instanceof Button;
   }
 
   @Override
-  public <T> ViewContext render(Content content, RenderFunction renderFunction, @Nullable T data) {
+  public ViewContext render(Content content, RenderFunction renderFunction, @Nullable Object data) {
     return new ButtonContext((Button) content);
   }
+
 
   public record ButtonContext(Button button) implements ViewContext {}
 }

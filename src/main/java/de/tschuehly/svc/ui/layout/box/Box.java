@@ -4,7 +4,7 @@ import de.tschuehly.svc.ui.strategy.Content;
 import java.util.Arrays;
 import java.util.List;
 
-public class Box implements Content {
+public class Box implements Content<Object> {
 
   public final List<Content> boxContents;
   public Box(List<Content> boxContents) {
