@@ -28,7 +28,6 @@ public class WebController {
             new TaskRow()
         ),
         taskService.getTaskById(taskId)
-
     );
   }
 }

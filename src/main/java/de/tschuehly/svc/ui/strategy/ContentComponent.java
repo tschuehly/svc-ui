@@ -7,5 +7,5 @@ public interface ContentComponent {
 
   <T> Boolean canHandle(Content content, @Nullable T data);
 
-  <T> ViewContext render(Content content, RenderFunction renderFunction,@Nullable T data);
+  <T> ViewContext render(Content content, RenderFunction renderFunction, @Nullable T data);
 }
