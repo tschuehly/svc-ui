@@ -2,6 +2,7 @@ package de.tschuehly.svc.ui;
 
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import de.tschuehly.svc.ui.domain.TaskService;
+import de.tschuehly.svc.ui.domain.task.Task;
 import de.tschuehly.svc.ui.domain.task.details.TaskDetails;
 import de.tschuehly.svc.ui.domain.task.row.TaskRow;
 import de.tschuehly.svc.ui.layout.box.Box;
@@ -22,11 +23,21 @@ public class WebController {
   @GetMapping("/{taskId}")
   ViewContext index(@PathVariable Integer taskId) {
     return contentStrategy.renderWithData(
+        new Box<Task>(
+            new TaskDetails(),
+            new TaskRow()
+        ),
+        new Task(1L,"Hello World")
+    );
+  }
+  @GetMapping("/task-user/{taskId}")
+  ViewContext taskError(@PathVariable Integer taskId) {
+    return contentStrategy.renderWithData(
         new Box(
             new TaskDetails(),
             new TaskRow()
         ),
-        new User("Hello")
+        new User("Hello World")
     );
   }
 
