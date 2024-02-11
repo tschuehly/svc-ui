@@ -3,9 +3,9 @@ package de.tschuehly.svc.ui.strategy;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import jakarta.annotation.Nullable;
 
-public interface ContentComponent {
+public interface ContentComponent<T> {
 
-  <T> Boolean canHandle(Content content, @Nullable T data);
+  Boolean canHandle(Content content);
 
-  <T> ViewContext render(Content content, RenderFunction renderFunction,@Nullable T data);
+  ViewContext render(Content content, RenderFunction<T> renderFunction, @Nullable T data);
 }

@@ -4,14 +4,14 @@ import de.tschuehly.svc.ui.strategy.Content;
 import java.util.Arrays;
 import java.util.List;
 
-public class Box implements Content {
+public class Box<T> implements Content<T> {
 
-  public final List<Content> boxContents;
-  public Box(List<Content> boxContents) {
+  public final List<Content<T>> boxContents;
+  public Box(List<Content<T>> boxContents) {
     this.boxContents = boxContents;
   }
 
-  public Box(Content... contents){
+  public Box(Content<T>... contents){
     this(Arrays.stream(contents).toList());
   }
 }
