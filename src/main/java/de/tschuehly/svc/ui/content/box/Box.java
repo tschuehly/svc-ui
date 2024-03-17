@@ -1,6 +1,6 @@
-package de.tschuehly.svc.ui.layout.box;
+package de.tschuehly.svc.ui.content.box;
 
-import de.tschuehly.svc.ui.strategy.Content;
+import de.tschuehly.svc.ui.content.strategy.Content;
 import java.util.Arrays;
 import java.util.List;
 

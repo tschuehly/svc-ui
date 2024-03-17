@@ -1,10 +1,10 @@
-package de.tschuehly.svc.ui.layout.box;
+package de.tschuehly.svc.ui.content.box;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
-import de.tschuehly.svc.ui.strategy.Content;
-import de.tschuehly.svc.ui.strategy.ContentComponent;
-import de.tschuehly.svc.ui.strategy.RenderFunction;
+import de.tschuehly.svc.ui.content.strategy.Content;
+import de.tschuehly.svc.ui.content.strategy.ContentComponent;
+import de.tschuehly.svc.ui.content.strategy.RenderFunction;
 
 @ViewComponent
 public class BoxComponent implements ContentComponent {

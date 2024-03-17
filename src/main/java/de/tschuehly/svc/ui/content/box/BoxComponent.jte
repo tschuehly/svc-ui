@@ -1,4 +1,4 @@
-@param de.tschuehly.svc.ui.layout.box.BoxComponent.BoxContext boxContext
+@param de.tschuehly.svc.ui.content.box.BoxComponent.BoxContext boxContext
 
 <div style="border: red 2px solid; padding: 1rem;">
     @for(var content: boxContext.content().boxContents)
