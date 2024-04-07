@@ -36,8 +36,7 @@ public class WebController {
             new UserDetails()
         ),
         new User(userId, "Thomas")
-
-//   When Task is passed as data a compiler error shows the compile time type safety
+//   When a Task is passed as data a compiler error shows the compile time type safety
 //    new Task(taskId, "Hello World")
     );
   }
