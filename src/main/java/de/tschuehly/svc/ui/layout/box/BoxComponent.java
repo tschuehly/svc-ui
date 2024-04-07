@@ -19,7 +19,7 @@ public class BoxComponent<T> implements ContentComponent<T> {
   @Override
   public ViewContext render(Content<T> content, RenderFunction<T> renderFunction, @Nullable T data) {
     Box<T> box = (Box<T>) content;
-    List<ViewContext> viewContextList = box.boxContents.stream().map(it -> renderFunction.render(it, data)).toList();
+    List<ViewContext> viewContextList = box.boxContents.stream().map(it -> renderFunction.render((Content<T>) it, data)).toList();
     return new BoxContext(viewContextList);
   }
 

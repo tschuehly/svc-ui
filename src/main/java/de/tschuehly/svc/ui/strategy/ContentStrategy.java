@@ -44,7 +44,7 @@ public class ContentStrategy {
   }
 
 
-  public ViewContext render(Content<?> content) {
+  public ViewContext render(Content<Anything> content) {
     return renderWithData(content, null);
   }
 

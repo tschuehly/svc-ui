@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Box<T> implements Content<T> {
 
-  public final List<Content<T>> boxContents;
-  public Box(List<Content<T>> boxContents) {
+  public final List<Content<? super T>> boxContents;
+  public Box(List<Content<? super T>> boxContents) {
     this.boxContents = boxContents;
   }
 
-  public Box(Content<T>... contents){
+  public Box(Content<? super T>... contents){
     this(Arrays.stream(contents).toList());
   }
 }

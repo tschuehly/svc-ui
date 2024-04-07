@@ -2,10 +2,7 @@
 
 This repository showcases how to build declarative User Interfaces using Spring ViewComponent and the Strategy Pattern
 
-
-## Content without Data:
-![image](https://github.com/tschuehly/svc-ui/assets/33346637/4d794bf6-63ec-4f20-bca4-fb593dc616af)
-
+You can find the examples in [WebController.java](src/main/java/de/tschuehly/svc/ui/WebController.java)
 
 ## Content with Data 
 
