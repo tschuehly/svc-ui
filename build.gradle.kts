@@ -19,8 +19,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
 
-    implementation("de.tschuehly:spring-view-component-jte:0.7.2")
-    annotationProcessor("de.tschuehly:spring-view-component-core:0.7.2")
+    implementation("de.tschuehly:spring-view-component-jte:0.7.3")
+    annotationProcessor("de.tschuehly:spring-view-component-core:0.7.3")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -12,12 +12,12 @@ import org.jetbrains.annotations.Nullable;
 public class TaskRowComponent implements ContentComponent<Task> {
 
   @Override
-  public Boolean canHandle(Content content) {
+  public Boolean canHandle(Content<Task> content) {
     return content instanceof TaskRow;
   }
 
   @Override
-  public ViewContext render(Content content, RenderFunction<Task> renderFunction, @Nullable Task data) {
+  public ViewContext render(Content<Task> content, RenderFunction<Task> renderFunction, @Nullable Task data) {
     return new TaskRowContext(data);
   }
 

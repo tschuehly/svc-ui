@@ -5,22 +5,25 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import de.tschuehly.svc.ui.strategy.Content;
 import de.tschuehly.svc.ui.strategy.ContentComponent;
 import de.tschuehly.svc.ui.strategy.RenderFunction;
+import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 @ViewComponent
-public class BoxComponent implements ContentComponent {
+public class BoxComponent<T> implements ContentComponent<T> {
 
   @Override
-  public Boolean canHandle(Content content) {
+  public Boolean canHandle(Content<T> content) {
     return content instanceof Box;
   }
 
   @Override
-  public ViewContext render(Content content, RenderFunction renderFunction, @Nullable Object data) {
-    return new BoxContext((Box) content, renderFunction, data);
+  public ViewContext render(Content<T> content, RenderFunction<T> renderFunction, @Nullable T data) {
+    Box<T> box = (Box<T>) content;
+    List<ViewContext> viewContextList = box.boxContents.stream().map(it -> renderFunction.render(it, data)).toList();
+    return new BoxContext(viewContextList);
   }
 
-  public record BoxContext(Box content, RenderFunction renderFunction, Object data) implements ViewContext {
+  public record BoxContext(List<ViewContext> viewContextList) implements ViewContext {
 
   }
 }

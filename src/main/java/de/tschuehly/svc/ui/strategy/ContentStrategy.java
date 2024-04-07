@@ -1,30 +1,54 @@
 package de.tschuehly.svc.ui.strategy;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
-import de.tschuehly.svc.ui.domain.task.Task;
 import jakarta.annotation.Nullable;
-import java.util.List;
+import java.util.Optional;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContentStrategy {
 
-  private final List<ContentComponent<?>> contentComponents;
+  private final ApplicationContext applicationContext;
 
   public <T> ViewContext renderWithData(Content<T> content, @Nullable T data) {
-    ContentComponent contentComponent = contentComponents.stream()
-        .filter(it -> it.canHandle(content))
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("FormNotImplementedException"));
-    return contentComponent.render(content, this::renderWithData, data);
+    ContentComponent<T> component = getComponent(content, data).orElseThrow(
+        () -> new RuntimeException("FormNotImplementedException"));
+    return component.render(content, this::renderWithData, data);
+//    ContentComponent<?> contentComponent = contentComponents.stream()
+//        .filter(it -> it.canHandle(content))
+//        .findFirst()
+//        .orElseThrow(() -> new RuntimeException("FormNotImplementedException"));
+//    ContentComponent<T> ct = (ContentComponent<T>) contentComponent;
+//    return ct.render(content, this::renderWithData, data);
   }
 
-  public ViewContext render(Content content) {
+  private <T> Optional<ContentComponent<T>> getComponent(Content<T> content, @Nullable T data) {
+    Optional<ContentComponent<T>> component = Optional.empty();
+    if (data != null) {
+      component = applicationContext.getBeanProvider(
+              ResolvableType.forClassWithGenerics(ContentComponent.class, data.getClass())).stream()
+          .map(it -> (ContentComponent<T>) it)
+          .filter(it -> it.canHandle(content))
+          .findFirst();
+    }
+    if (component.isEmpty()) {
+      return applicationContext.getBeanProvider(
+              ResolvableType.forClassWithGenerics(ContentComponent.class, ResolvableType.forClass(Object.class)))
+          .stream().map(it -> (ContentComponent<T>) it)
+          .filter(it -> it.canHandle(content))
+          .findFirst();
+    }
+    return component;
+  }
+
+
+  public ViewContext render(Content<?> content) {
     return renderWithData(content, null);
   }
 
-  public ContentStrategy(List<ContentComponent<?>> contentComponents) {
-    this.contentComponents = contentComponents;
+  public ContentStrategy(ApplicationContext applicationContext) {
+    this.applicationContext = applicationContext;
   }
 }

@@ -15,31 +15,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class WebController {
 
-  @Autowired
-  private ContentStrategy contentStrategy;
-  @Autowired
-  private TaskService taskService;
+  private final ContentStrategy contentStrategy;
+
+  public WebController(ContentStrategy contentStrategy) {
+    this.contentStrategy = contentStrategy;
+  }
 
   @GetMapping("/{taskId}")
-  ViewContext index(@PathVariable Integer taskId) {
+  ViewContext task(@PathVariable Long taskId) {
     return contentStrategy.renderWithData(
         new Box<>(
             new TaskDetails(),
             new TaskRow()
         ),
-        new Task(1L,"Hello World")
+        new Task(taskId,"Hello World")
     );
   }
   @GetMapping("/task-error/{taskId}")
-  ViewContext taskError(@PathVariable Integer taskId) {
+  ViewContext taskError(@PathVariable Long taskId) {
 //    This compiler error shows the complie time type safety
     return contentStrategy.renderWithData(
         new Box<>(
             new TaskDetails(),
             new TaskRow()
         ),
-//        new Task(1L,"Hello World")
-        new User("Hello World")
+        new Task(taskId,"Hello World")
+//        new User("Hello World")
     );
   }
 
