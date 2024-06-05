@@ -9,15 +9,10 @@ import de.tschuehly.svc.ui.strategy.RenderFunction;
 import org.jetbrains.annotations.Nullable;
 
 @ViewComponent
-public class UserDetailsComponent implements ContentComponent<User> {
-
+public class UserDetailsComponent extends ContentComponent<UserDetails, User> {
   @Override
-  public Boolean canHandle(Content<User> content) {
-    return content instanceof UserDetails;
-  }
-
-  @Override
-  public ViewContext render(Content<User> content, RenderFunction<User> renderFunction, @Nullable User data) {
+  protected ViewContext render(UserDetails content, RenderFunction<Content<? super User>, User> renderFunction,
+      @Nullable User data) {
     return new UserDetailsContext(data);
   }
 

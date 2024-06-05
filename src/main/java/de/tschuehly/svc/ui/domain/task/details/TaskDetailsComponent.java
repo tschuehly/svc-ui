@@ -9,18 +9,13 @@ import de.tschuehly.svc.ui.strategy.RenderFunction;
 import org.jetbrains.annotations.Nullable;
 
 @ViewComponent
-public class TaskDetailsComponent implements ContentComponent<Task> {
+public class TaskDetailsComponent extends ContentComponent<TaskDetails, Task> {
+
 
   @Override
-  public Boolean canHandle(Content<Task> content) {
-    return content instanceof TaskDetails;
-  }
-
-  @Override
-  public ViewContext render(Content<Task> content, RenderFunction<Task> renderFunction, @Nullable Task data) {
+  protected ViewContext render(TaskDetails content, RenderFunction<Content<? super Task>, Task> renderFunction, @Nullable Task data) {
     return new TaskDetailsContext(data);
   }
-
 
   public record TaskDetailsContext(Task task) implements ViewContext {
 

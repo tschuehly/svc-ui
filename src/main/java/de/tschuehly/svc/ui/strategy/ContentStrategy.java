@@ -12,10 +12,11 @@ public class ContentStrategy {
 
   private final ApplicationContext applicationContext;
 
-  public <T> ViewContext renderWithData(Content<T> content, @Nullable T data) {
-    ContentComponent<T> component = getComponent(content, data).orElseThrow(
+  public <C extends Content<D>, D> ViewContext renderWithData(C content, @Nullable D data) {
+    ContentComponent<C, D> contentComponent = getComponent(content, data).orElseThrow(
         () -> new RuntimeException("FormNotImplementedException"));
-    return component.render(content, this::renderWithData, data);
+
+    return contentComponent.render(content, this::renderWithData, data);
 //    ContentComponent<?> contentComponent = contentComponents.stream()
 //        .filter(it -> it.canHandle(content))
 //        .findFirst()
@@ -24,27 +25,29 @@ public class ContentStrategy {
 //    return ct.render(content, this::renderWithData, data);
   }
 
-  private <T> Optional<ContentComponent<T>> getComponent(Content<T> content, @Nullable T data) {
-    Optional<ContentComponent<T>> component = Optional.empty();
+  private <C extends Content<D>, D> Optional<ContentComponent<C, D>> getComponent(C content, @Nullable D data) {
+    Optional<ContentComponent<C, D>> component = Optional.empty();
+
     if (data != null) {
-      component = applicationContext.getBeanProvider(
-              ResolvableType.forClassWithGenerics(ContentComponent.class, data.getClass())).stream()
-          .map(it -> (ContentComponent<T>) it)
-          .filter(it -> it.canHandle(content))
+      ResolvableType contentComponentType = ResolvableType.forClassWithGenerics(ContentComponent.class,
+          ResolvableType.forInstance(content), ResolvableType.forInstance(data));
+      component = applicationContext.getBeanProvider(contentComponentType)
+          .stream()
+          .map(it -> (ContentComponent<C, D>) it)
           .findFirst();
     }
     if (component.isEmpty()) {
-      return applicationContext.getBeanProvider(
-              ResolvableType.forClassWithGenerics(ContentComponent.class, ResolvableType.forClass(Object.class)))
-          .stream().map(it -> (ContentComponent<T>) it)
-          .filter(it -> it.canHandle(content))
+      ResolvableType contentComponentType = ResolvableType.forClassWithGenerics(ContentComponent.class,
+          ResolvableType.forInstance(content), ResolvableType.forClass(Object.class));
+      return applicationContext.getBeanProvider(contentComponentType)
+          .stream().map(it -> (ContentComponent<C, D>) it)
           .findFirst();
     }
     return component;
   }
 
 
-  public ViewContext render(Content<Anything> content) {
+  public ViewContext render(Content<Object> content) {
     return renderWithData(content, null);
   }
 

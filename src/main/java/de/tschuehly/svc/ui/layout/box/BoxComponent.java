@@ -9,17 +9,12 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 @ViewComponent
-public class BoxComponent<T> implements ContentComponent<T> {
+public class BoxComponent<D> extends ContentComponent<Box<D>, D> {
 
   @Override
-  public Boolean canHandle(Content<T> content) {
-    return content instanceof Box;
-  }
-
-  @Override
-  public ViewContext render(Content<T> content, RenderFunction<T> renderFunction, @Nullable T data) {
-    Box<T> box = (Box<T>) content;
-    List<ViewContext> viewContextList = box.boxContents.stream().map(it -> renderFunction.render((Content<T>) it, data)).toList();
+  protected ViewContext render(Box<D> content, RenderFunction<Content<? super D>, D> renderFunction, @Nullable D data) {
+    List<ViewContext> viewContextList = content.boxContents.stream().map(it -> renderFunction.render(it, data))
+        .toList();
     return new BoxContext(viewContextList);
   }
 

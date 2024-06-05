@@ -24,7 +24,7 @@ public class WebController {
 
 
   @GetMapping("/")
-  ViewContext index() {
+  public ViewContext index() {
     return contentStrategy.render(new Box<>(
         new Button("Hello World")
     ));
@@ -36,8 +36,17 @@ public class WebController {
             new UserDetails()
         ),
         new User(userId, "Thomas")
+    );
+  }
+// We can use only use the Content with the data they specified
+  @GetMapping("/user2/{userId}")
+  ViewContext userError(@PathVariable Long userId) {
+    return contentStrategy.renderWithData(new Box<>(
+            new UserDetails()
+        ),
 //   When a Task is passed as data a compiler error shows the compile time type safety
-//    new Task(taskId, "Hello World")
+//    new Task(1L, "Hello World")
+        new User(1L, "Thomas")
     );
   }
 
@@ -45,7 +54,7 @@ public class WebController {
   @GetMapping("/task/{taskId}")
   ViewContext task(@PathVariable Long taskId) {
     return contentStrategy.renderWithData(
-        new Box<>(
+        new Box<Task>(
             new TaskDetails(),
             new TaskRow(),
             new Button("new world")
@@ -55,7 +64,7 @@ public class WebController {
   }
 
   //  We cannot use Components that use different data together
-  @GetMapping("/task/{taskId}")
+  @GetMapping("/task2/{taskId}")
   ViewContext taskUser(@PathVariable Long taskId) {
     return contentStrategy.renderWithData(
         new Box<>(
