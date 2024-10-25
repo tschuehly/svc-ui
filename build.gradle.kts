@@ -21,10 +21,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-
-    implementation("de.tschuehly:spring-view-component-jte:0.8.1-SNAPSHOT")
-
+    implementation("de.tschuehly:spring-view-component-jte:0.8.4")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
