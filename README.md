@@ -7,3 +7,8 @@ You can find the examples in [WebController.java](src/main/java/de/tschuehly/svc
 ## Content with Data 
 
 ![image](https://github.com/tschuehly/svc-ui/assets/33346637/fa15b88f-0777-4347-a65b-5d8a80a84644)
+
+## Running
+
+- Hot reload of templates: run with the `dev` profile (`--spring.profiles.active=dev`).
+- Native image (Java 25, Docker): `./gradlew bootBuildImage`. CI publishes `ghcr.io/tschuehly/svc-ui:<sha>` and `:latest` on push to `master`.
