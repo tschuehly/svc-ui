@@ -29,6 +29,11 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 }
 
+// Kamal requires the image label service=<service> (deploy/apps/svc-ui/config/deploy.yml).
+tasks.bootBuildImage {
+    environment.put("BP_IMAGE_LABELS", "service=svc-ui")
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
