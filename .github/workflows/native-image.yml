@@ -1,0 +1,36 @@
+name: Native image
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew test bootBuildImage --imageName=${{ env.IMAGE }}:${{ github.sha }}
+      - name: Smoke test
+        run: |
+          docker run -d --name app -p 8080:8080 ${{ env.IMAGE }}:${{ github.sha }}
+          for i in $(seq 30); do curl -sf localhost:8080/ > /dev/null && break; sleep 1; done
+          for p in / /user/1 /task/1; do curl -sf -o /dev/null localhost:8080$p || { docker logs app; exit 1; }; done
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker tag ${{ env.IMAGE }}:${{ github.sha }} ${{ env.IMAGE }}:latest
+          docker push ${{ env.IMAGE }}:${{ github.sha }}
+          docker push ${{ env.IMAGE }}:latest
